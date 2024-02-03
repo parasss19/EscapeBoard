@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         element: <Forms />
       },
       {
-        path: "",
+        path: "room/:roomId",
         element: <RoomPage />
       },
       

@@ -22,11 +22,11 @@ const index = () => {
             </div>
              
             <div className=''>
-                <button type='button' className='border bg-red-800 text-white p-1 font-mono rounded-md mr-2' >
+                <button type='button' className='border bg-red-500 hover:bg-red-600 text-white p-1 font-mono rounded-md mr-2' >
                  generate
                 </button>
      
-                <button type='button' className='border bg-black text-white  p-1 font-mono rounded-md' >
+                <button type='button' className='border bg-black/70 hover:bg-black/80 text-white  p-1 font-mono rounded-md' >
                  copy
                 </button>
             </div>

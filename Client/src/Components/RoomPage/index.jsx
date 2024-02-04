@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import WhiteBoard from "../WhiteBoard";
 
 const index = () => {
+
+  //As whiteboard is in different component so we pass reference of canvas and ctx in whiteboard component
+  const canvasRef = useRef(null);
+  const ctxRef = useRef(null);
+  const [elements, setElements] = useState([]);
+
   const [tool, setTool] = useState("Pencil");
   const [color, setColor] = useState('black');
+  
 
   return (
     <div className="row h-[100vh] mt-3 ">
@@ -77,7 +84,13 @@ const index = () => {
         <button className="bg-red-800 hover:bg-red-700 text-white rounded-md px-2 py-1 font-mono font-bold"> Clear Canvas </button>    
       </div>
       
-      <WhiteBoard />
+      <WhiteBoard 
+        canvasRef={canvasRef} 
+        ctxRef={ctxRef} 
+        elements={elements} 
+        setElements={setElements}
+      />
+      
     </div>
   );
 };

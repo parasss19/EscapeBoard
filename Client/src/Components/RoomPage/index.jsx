@@ -9,11 +9,52 @@ const index = () => {
   const [elements, setElements] = useState([]);
 
   const [tool, setTool] = useState("Pencil");
-  const [color, setColor] = useState('black');
+  const [color, setColor] = useState('#000000');
+
+  //history array is used for redo and elements array used for undo
+  const [history, setHistory] = useState([]);
+
+
+  //Clear canvas
+  const handleCanvasClear =  () => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d'); 
+
+    context.fillRect = "white";
+    context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+    setElements([]);
+  }
+  
+  //UNDO
+  const handleUndo = () => {
+    //remove the second last element from elements array
+    setElements((prevElem) => (
+      prevElem.slice(0, prevElem.length - 1)
+    ))
+    //Now add the removed element in history array
+    setHistory((prevHistory) => [
+      ...prevHistory,
+      elements[elements.length - 1]
+    ])
+  }
   
 
+  //REDO
+  const handleRedo = () => {
+    //Now add the removed element in history array
+    setElements((prevElem) => [
+      ...prevElem,
+      history[history.length - 1]
+    ])
+    //remove the second last element from elements array
+    setHistory((prevHistory) => (
+      prevHistory.slice(0, prevHistory.length - 1)
+    ))
+  }
+
   return (
-    <div className="row h-[100vh] mt-3 ">
+    <div className="row  mt-3 ">
       <h1 className="text-center py-5 font-mono font-bold text-4xl text-blue-700 uppercase mt-1">Think <span className="text-red-800">"create"</span> draw 🚀 
         {/* <span className="font-light text-base"> Users :1</span>  */}
       </h1>
@@ -31,7 +72,8 @@ const index = () => {
               checked = {tool === "Pencil"}
               id="Pencil"
               className=""
-              onChange={() => setTool(e.target.value)}
+              onClick={(e) => setTool(e.target.value)}
+              readOnly={true}
             />
           </div>
 
@@ -44,7 +86,8 @@ const index = () => {
               value="Line"
               id="Line"
               className=""
-              onChange={() => setTool(e.target.value)}
+              onClick={(e) => setTool(e.target.value)}
+              readOnly={true}
             />
           </div>
           <div>
@@ -56,7 +99,8 @@ const index = () => {
               value="Rect"
               id="Rect"
               className=""
-              onChange={() => setTool(e.target.value)}
+              onClick={(e) => setTool(e.target.value)}
+              readOnly={true}
             />
           </div>
 
@@ -71,17 +115,28 @@ const index = () => {
               value={color}
               id="color"
               className=""
-              onChange={() => setColor(e.target.value)}
+              onChange={(e) => setColor(e.target.value)}
             />
           </div>
         
         {/* Button */}
           <div className="flex gap-3">
-            <button className="bg-blue-700 hover:bg-blue-900  text-white rounded-md px-2 py-1 font-mono font-bold"> Undo</button>
-            <button className="bg-blue-700 hover:bg-blue-900 text-white rounded-md px-2 py-1 font-mono font-bold"> Redo </button>   
+            <button 
+                disabled = {elements.length === 0}
+                className="bg-blue-700 hover:bg-blue-900  text-white rounded-md px-2 py-1 font-mono font-bold"
+                onClick={() => handleUndo()}
+            > Undo
+            </button>
+
+            <button 
+                disabled = {history.length < 1} 
+                className="bg-blue-700 hover:bg-blue-900 text-white rounded-md px-2 py-1 font-mono font-bold"
+                onClick={() => handleRedo()}
+            > Redo 
+            </button>   
           </div>
           
-        <button className="bg-red-800 hover:bg-red-700 text-white rounded-md px-2 py-1 font-mono font-bold"> Clear Canvas </button>    
+        <button onClick={handleCanvasClear} className="bg-red-800 hover:bg-red-700 text-white rounded-md px-2 py-1 font-mono font-bold"> Clear Canvas </button>    
       </div>
       
       <WhiteBoard 
@@ -89,6 +144,8 @@ const index = () => {
         ctxRef={ctxRef} 
         elements={elements} 
         setElements={setElements}
+        tool={tool}
+        color={color}
       />
       
     </div>

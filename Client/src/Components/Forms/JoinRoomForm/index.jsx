@@ -19,7 +19,7 @@ const index = () => {
           />
       </div>
 
-      <button type="submit" className="bg-blue-900 text-white font-mono font-bold w-full mt-2 py-2"> Join Room </button>
+      <button type="submit" className="bg-blue-900 hover:bg-blue-700 text-white font-mono font-bold w-full mt-2 py-2"> Join Room </button>
     </form>
   );
 };

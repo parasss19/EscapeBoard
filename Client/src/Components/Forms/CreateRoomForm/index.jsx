@@ -32,7 +32,7 @@ const index = () => {
             </div>
         </div>
 
-        <button type='submit' className='bg-blue-900 text-white font-mono font-bold w-full mt-2 py-2'> Generate Room</button>
+        <button type='submit' className='bg-blue-900 hover:bg-blue-700 text-white font-mono font-bold w-full mt-2 py-2'> Generate Room</button>
     </form>
   )
 }

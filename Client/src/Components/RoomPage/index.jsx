@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import WhiteBoard from "../WhiteBoard";
 
-const index = () => {
+const RoomPage = () => {
 
   //As whiteboard is in different component so we pass reference of canvas and ctx in whiteboard component
   const canvasRef = useRef(null);
@@ -152,4 +152,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default RoomPage;

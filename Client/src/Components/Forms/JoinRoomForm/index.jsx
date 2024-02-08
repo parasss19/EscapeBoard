@@ -1,6 +1,6 @@
 import React from "react";
 
-const index = () => {
+const JoinRoom = () => {
   return (
     <form className="mt-3">
       <div>
@@ -24,4 +24,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default JoinRoom;

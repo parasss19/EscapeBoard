@@ -4,7 +4,7 @@ import rough from "roughjs";
 const generator  = rough.generator();   //with the help of this we add the linear path 
 
 
-function index({ canvasRef, ctxRef , elements, setElements, color, tool }) {
+function WhiteBoard({ canvasRef, ctxRef , elements, setElements, color, tool }) {
   const [isDrawing, setIsDrawing] = useState(false);     //it track if the user is drawing or not
 
   useEffect(() => {
@@ -241,4 +241,4 @@ function index({ canvasRef, ctxRef , elements, setElements, color, tool }) {
   );
 }
 
-export default index;
+export default WhiteBoard;

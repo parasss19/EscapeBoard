@@ -1,7 +1,7 @@
 import JoinRoom from './JoinRoomForm';
 import CreateRoom from './CreateRoomForm'
 
-const index = () => {
+const Forms = () => {
   return (
     <div className='flex justify-center items-center h-[70vh] my-12 gap-x-36'>
           {/* Left col= Create Room */}
@@ -19,5 +19,5 @@ const index = () => {
   )
 }
 
-export default index
+export default Forms;
 

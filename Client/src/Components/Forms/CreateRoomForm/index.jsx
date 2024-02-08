@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form } from 'react-router-dom'
 
-const index = () => {
+const CreateRoom = () => {
   return (
     <form className='mt-3'>
         <div>
@@ -37,4 +37,4 @@ const index = () => {
   )
 }
 
-export default index
+export default CreateRoom;

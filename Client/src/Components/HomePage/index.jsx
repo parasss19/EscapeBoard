@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="mx-auto w-full max-w-7xl">
     <aside className="relative overflow-hidden text-black rounded-lg sm:mx-16 mx-2 sm:py-16">

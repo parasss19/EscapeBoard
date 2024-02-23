@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const CreateRoom = ({passGenerator}) => {
+const CreateRoom = ({passGenerator, socket, setUserData}) => {
   const [name, setName] = useState('');
   const [roomId , setRoomId] = useState('');
 
+  const navigate = useNavigate();
 
   //When we click on Generate room button 
   const handleCreateRoom = (e) => {
     e.preventDefault();
-
-    //here we pass obj roomData which contain info like name,roomId, userId,host,presenter
+    
+    //here we pass obj (roomData) which contain info like name,roomId, userId,host,presenter
     const roomData = {
       name,
       roomId,
       userId : passGenerator(),
       host : true,
       presenter : true,
-    }
+    };
+
+    setUserData(roomData);    //to store roomData we created setUserData state
+    navigate(`/${roomId}`);   //navigate the user after clicking on generate room button
+    // console.log(roomData)
+    socket.emit("user-joined", roomData); 
   }
+
 
   return (
     <form className='mt-3'>

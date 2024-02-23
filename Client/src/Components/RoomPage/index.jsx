@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import WhiteBoard from "../WhiteBoard";
 
-const RoomPage = () => {
+const RoomPage = ({userData, socket}) => {
 
-  //As whiteboard is in different component so we pass reference of canvas and ctx in whiteboard component
+  //As whiteboard is in different component so we pass reference of canvas and ctx(context) in whiteboard component
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
   const [elements, setElements] = useState([]);
@@ -13,6 +13,8 @@ const RoomPage = () => {
 
   //history array is used for redo and elements array used for undo
   const [history, setHistory] = useState([]);
+
+  const [isActive, setIsActive] = useState();
 
 
   //Clear canvas
@@ -42,12 +44,12 @@ const RoomPage = () => {
 
   //REDO
   const handleRedo = () => {
-    //Now add the removed element in history array
+    //Now add the removed element in elements array
     setElements((prevElem) => [
       ...prevElem,
       history[history.length - 1]
     ])
-    //remove the second last element from elements array
+    //remove the second last element from history array
     setHistory((prevHistory) => (
       prevHistory.slice(0, prevHistory.length - 1)
     ))
@@ -55,10 +57,14 @@ const RoomPage = () => {
 
   return (
     <div className="row  mt-3 ">
+      
+      {/* TITLE */}
       <h1 className="text-center py-5 font-mono font-bold text-4xl text-blue-700 uppercase mt-1">Think <span className="text-red-800">"create"</span> draw 🚀 
         {/* <span className="font-light text-base"> Users :1</span>  */}
       </h1>
-
+       
+       
+      {/* TOOLS */}
       {/*Parent container*/}
       <div className=" bg-red-300/45 flex justify-between items-center max-w-[70%] mx-auto rounded-lg px-3 py-2">
         {/* This div wrap all the tools */}
@@ -105,8 +111,8 @@ const RoomPage = () => {
           </div>
 
         </div>
-
-        {/* This div wrap color and buttons */}
+      
+        {/* This div wrap color */}
           <div className="flex items-center ">
             <label htmlFor="color" className="mr-1 font-mono font-semibold">Select Color : </label>
             <input
@@ -119,7 +125,7 @@ const RoomPage = () => {
             />
           </div>
         
-        {/* Button */}
+        {/*UNDO / REDO Button */}
           <div className="flex gap-3">
             <button 
                 disabled = {elements.length === 0}
@@ -130,15 +136,18 @@ const RoomPage = () => {
 
             <button 
                 disabled = {history.length < 1} 
-                className="bg-blue-700 hover:bg-blue-900 text-white rounded-md px-2 py-1 font-mono font-bold"
+                className="bg-blue-700 hover:bg-blue-900  text-white rounded-md px-2 py-1 font-mono font-bold"
                 onClick={() => handleRedo()}
             > Redo 
             </button>   
           </div>
           
         <button onClick={handleCanvasClear} className="bg-red-800 hover:bg-red-700 text-white rounded-md px-2 py-1 font-mono font-bold"> Clear Canvas </button>    
+      
       </div>
       
+
+      {/* CANVAS/WHITEBOARD */}
       <WhiteBoard 
         canvasRef={canvasRef} 
         ctxRef={ctxRef} 
@@ -146,6 +155,8 @@ const RoomPage = () => {
         setElements={setElements}
         tool={tool}
         color={color}
+        userData={userData}
+        socket={socket}
       />
       
     </div>

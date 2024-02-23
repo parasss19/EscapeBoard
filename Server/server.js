@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require("cors");
 
+const {addUser} = require("./utils/users");
+
 //Creating server
 const server = require('http').createServer(app);
 
@@ -16,15 +18,24 @@ const io = require('socket.io')(server, {
 io.on("connection", (socket)=> {
    console.log("User connected");
 
+   //catch "user-joined" event to get num of user joined to io
    socket.on("user-joined", (data) => { 
       const { name, roomId, userId, host, presenter } = data;
       
-      socket.join(roomId); 
+      socket.join(roomId);      
+
+      //To show num of user joined
+      const users = addUser(data);
        
       //When user joined 
       socket.emit("userIsJoined", { 
-         success: true 
+         success: true,
+         users
       });  
+         
+      //Broadcast num of users joined
+      socket.broadcast.to(roomId).emit("onlineUsers", users);
+
    }); 
 
 

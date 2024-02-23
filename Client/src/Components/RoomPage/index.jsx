@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import WhiteBoard from "../WhiteBoard";
 
-const RoomPage = ({userData, socket}) => {
+const RoomPage = ({userData, socket, users}) => {
 
   //As whiteboard is in different component so we pass reference of canvas and ctx(context) in whiteboard component
   const canvasRef = useRef(null);
@@ -60,7 +60,7 @@ const RoomPage = ({userData, socket}) => {
       
       {/* TITLE */}
       <h1 className="text-center py-5 font-mono font-bold text-4xl text-blue-700 uppercase mt-1">Think <span className="text-red-800">"create"</span> draw 🚀 
-        {/* <span className="font-light text-base"> Users :1</span>  */}
+        <span className="font-light text-base"> Users Online: {users.length}</span> 
       </h1>
        
        

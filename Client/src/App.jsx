@@ -22,15 +22,24 @@ const socket = io.connect("http://localhost:3000", {
 const App = () => {
 
   const [userData, setUserData] = useState(null);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
+
+    //Catch "userIsJoined" event to check userjoined or not
     socket.on("userIsJoined", (data) => {
       if (data.success) {
         console.log("UserJoined");
+        setUsers(data.users);
       } else {
         console.log("Error");
       }
     });
+
+    //Catch "onlineUsers" event to show num of online users
+    socket.on("onlineUsers", (data) => {
+      setUsers(data);
+    })
   }, []);
 
 
@@ -66,6 +75,7 @@ const App = () => {
               <RoomPage
                 userData={userData}
                 socket={socket}
+                users = {users}
               />
             } 
           />

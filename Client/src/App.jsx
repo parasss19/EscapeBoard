@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {io} from "socket.io-client";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";    //For routing  
@@ -6,6 +6,7 @@ import Layout from "./Layout";
 import HomePage from "../src/Components/HomePage";
 import Forms from "../src/Components/Forms"; // For join/create room
 import RoomPage from "../src/Components/RoomPage";
+import About from "../src/Components/About";
 
 
 
@@ -56,18 +57,27 @@ const App = () => {
     return pass; // Return the generated password
   };
 
-  
+  // Function to generate and set password
+  //  const generateAndSetPass = () => {
+  //   setPass(passGenerator());
+  // };
+
+
   return (
     <Router>
 
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
           <Route path="room" element={
               <Forms
                 passGenerator={passGenerator}
                 socket={socket}
                 setUserData={setUserData}
+                // pass={pass}
+                // setPass={setPass}
+                // generateAndSetPass={generateAndSetPass}
               />
             }
           />

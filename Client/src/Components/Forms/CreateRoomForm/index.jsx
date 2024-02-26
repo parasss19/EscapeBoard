@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const CreateRoom = ({passGenerator, socket, setUserData}) => {
@@ -25,6 +25,24 @@ const CreateRoom = ({passGenerator, socket, setUserData}) => {
     // console.log(roomData)
     socket.emit("user-joined", roomData); 
   }
+
+  // Function to copy the password to the clipboard(we are storing pass returned by passGenerator function in "roomId" state and also "generate" button use "setRoomId" )
+    const copyPass = useCallback(() => {
+      if (roomId !== "") {
+        navigator.clipboard.writeText(roomId)
+          .then(() =>{ 
+            alert("Password copied");
+            console.log('Password copied to clipboard')
+          })
+          .catch(err => {
+            alert("Failed to copy password");
+            console.error('Could not copy password: ', err);
+          });
+      } else {
+        alert("Generate a password first");
+      }
+    }, [roomId]);
+  
 
 
   return (
@@ -61,7 +79,8 @@ const CreateRoom = ({passGenerator, socket, setUserData}) => {
      
                 <button 
                     type='button' 
-                    className='border bg-black/70 hover:bg-black/80 text-white  p-1 font-mono rounded-md' 
+                    className='border bg-black/70 hover:bg-black/80 text-white  p-1 font-mono rounded-md'
+                    onClick={copyPass} 
                     
                 >
                  copy

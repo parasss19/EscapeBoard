@@ -18,7 +18,7 @@ const io = require('socket.io')(server, {
 io.on("connection", (socket)=> {
    console.log("User connected");
 
-   //catch "user-joined" event to get num of user joined to io
+   //catch "user-joined" event to get data of users
    socket.on("user-joined", (data) => { 
       const { name, roomId, userId, host, presenter } = data;
       

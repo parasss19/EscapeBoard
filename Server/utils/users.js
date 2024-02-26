@@ -1,6 +1,6 @@
 const users = [];
 
-//Add user to list
+//Add user to list 
 const addUser = ({name, roomId, userId, host, presenter}) => {
    const user = {name, roomId, userId, host, presenter};
    users.push(user);
@@ -11,7 +11,7 @@ const addUser = ({name, roomId, userId, host, presenter}) => {
 }
 
 
-//Remove user to list
+//Remove user to list  
 // findIndex() method is used to find the index of the user in the users array where the userId matches the given id. If there is no such user, findIndex() will return -1.
 const RemoveUser = (id) => {
     const index = users.findIndex((eachUser) => (
@@ -37,9 +37,9 @@ const getUser = (id) => {
 
 
 //Get All User from the room 
-const getAllUser = (id) => {
+const getAllUser = (roomId) => {
     return users.filter((eachUser) => (
-        eachUser.roomId === id
+        eachUser.roomId === roomId
     ))
 }
 

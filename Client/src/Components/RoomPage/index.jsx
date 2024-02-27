@@ -14,7 +14,7 @@ const RoomPage = ({userData, socket, users}) => {
   //history array is used for redo and elements array used for undo
   const [history, setHistory] = useState([]);
 
-  const [isActive, setIsActive] = useState();
+  const [openUsersTab, setOpenUsersTab] = useState(false);
 
 
   //Clear canvas
@@ -55,8 +55,52 @@ const RoomPage = ({userData, socket, users}) => {
     ))
   }
 
+
+
+
   return (
     <div className="row  mt-3 ">
+
+      {/* Show all users connected */}
+      <button 
+        type="button"
+        className="fixed left-6 text-white bg-cyan-700 hover:bg-cyan-800 font-mono font-semibold rounded-lg text-md px-4 lg:px-4 py-2 lg:py-1.5" 
+        onClick={() => setOpenUsersTab(true)}
+      >
+        Users
+      </button>
+
+      {/* Logic to show and close all connected users */}
+     
+      {
+        openUsersTab && (
+          <div className="absolute w-[230px] h-full bg-black">   
+            {/* To close the tab */}
+            <button 
+              type="button" 
+              onClick={() => setOpenUsersTab(false)}
+              className="absolute left-48 top-3"
+            >
+              ❌
+            </button>
+
+            {/*Render users connected list here */}
+            <div className="w-full">
+              <h2 className="text-white font-semibold font-mono text-lg text-center border border-blue-600 mt-11 mx-4 ">All Users</h2>
+              {
+                users.map((user, index) => (
+                  <p key={index*999} className="text-white mt-5 ml-4 uppercase font-mono">
+                    {user.name}
+                    {userData && userData.userId === user.userId && "(You)"}
+                  </p>
+                ))
+              }
+            </div>  
+          </div>
+        )
+      }
+
+
       
       {/* TITLE */}
       <h1 className="text-center py-5 font-mono font-bold text-4xl text-blue-700 uppercase mt-1">Think <span className="text-red-800">"create"</span> draw 🚀 

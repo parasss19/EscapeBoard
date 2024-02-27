@@ -23,7 +23,7 @@ const socket = io.connect("http://localhost:3000", {
 const App = () => {
 
   const [userData, setUserData] = useState(null);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);           
 
   useEffect(() => {
 
@@ -57,11 +57,6 @@ const App = () => {
     return pass; // Return the generated password
   };
 
-  // Function to generate and set password
-  //  const generateAndSetPass = () => {
-  //   setPass(passGenerator());
-  // };
-
 
   return (
     <Router>
@@ -75,9 +70,6 @@ const App = () => {
                 passGenerator={passGenerator}
                 socket={socket}
                 setUserData={setUserData}
-                // pass={pass}
-                // setPass={setPass}
-                // generateAndSetPass={generateAndSetPass}
               />
             }
           />
